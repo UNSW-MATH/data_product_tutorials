@@ -80,11 +80,10 @@ clear c leg
 
 %% Demonstration: Compare gridded temperature data at the surface, 20 m, 50 m, 75 m and 90 m over the last 10 years
 
-% create figure
 figure('units','normalized','position',[.1 .1 .8 .6])
-% select data over the last 10 years
+
 ctime = data_grid.TIME > datenum(2010,01,01);
-% scatter data
+
 hold on;
 scatter(data_grid.TIME(ctime),data_grid.TEMP_GRID(ctime,1),10,'filled'); % surface
 scatter(data_grid.TIME(ctime),data_grid.TEMP_GRID(ctime,21),10,'filled'); % 20 m
@@ -105,7 +104,6 @@ set(leg,'Location','NorthWest','FontSize',12,'Box','Off','Orientation','Horizont
 % https://au.mathworks.com/matlabcentral/fileexchange/57773-cmocean-perceptually-uniform-colormaps
 load('cmap');
 
-% Create figure
 figure('units','normalized','position',[.2 .1 .6 .6])
 
 hold on;
@@ -125,13 +123,13 @@ set(leg,'Location','NorthWest','FontSize',12,'Box','Off','Orientation','Horizont
 
 %% Demonstration: export data as CSV files
 
-% exporting the climatology mean, 10th and 90th percentiles
-% create structure 
-clim.day = (1:365)';
+% exporting the climatology
 clim.mean = data_clim.TEMP_AVE;
-clim.PER10 = data_clim.TEMP_PER10;
-clim.PER90 = data_clim.TEMP_PER90;
-% convert structure to table and save as a .csv
-writetable(struct2table(clim), 'climatology.csv')
+clim.mean = data_clim.TEMP_PER10;
+clim.mean = data_clim.TEMP_PER90;
+writetable(struct2table(data_clim), 'mean_climatology.csv')
+
+
+
 
 
