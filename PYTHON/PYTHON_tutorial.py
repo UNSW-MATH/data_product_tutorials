@@ -15,6 +15,8 @@
 import xarray as xr
 # for data selection
 import numpy as np
+# for saving as .csv
+import pandas as pd
 # for creating plots
 import matplotlib.pyplot as plt
 
@@ -24,9 +26,28 @@ import matplotlib.pyplot as plt
 
 # %% --------- Demonstration: Downloading files -----------------------------
 
-
-# TO DO
-
+# %####################################################################################################
+# 
+# % The netCDF files are available for download here: http://thredds.aodn.org.au/thredds/catalog/IMOS/catalog.html and 
+# % the catalogue record is available here: https://catalogue-rc.aodn.org.au/
+#   
+# % For more information on the files and methodology, please see Roughan, M., et al. "Multi-decadal ocean temperature time-series and 
+# % climatologies from Australia's National Reference Stations." Scientific Data 8.1 (2021): 1-23. (TO UPDATED)
+# 
+# %####################################################################################################
+# 
+# %----------%----------
+# % Citation:
+# %----------%----------
+#   
+# % Any and all use of the data products and code provided here must include:
+#   
+# % (a) a citation to the above paper,
+# % (b) a reference to the data citation as written in the netCDF file attributes
+# % (c) the following acknowledgement statement: Data was sourced from Australia's Integrated Marine Observing System (IMOS) - IMOS is enabled by
+# %     the NationalCollaborative Research Infrastructure Strategy (NCRIS).
+# 
+# %####################################################################################################
 
 # %% --------- Demonstration: loading the netCDF files ----------------------
 
@@ -134,8 +155,27 @@ ax.set_xticklabels(xticklabels)
 
 # %% ----- Demonstration: export data as CSV files -----------------
 
+# exporting the climatology mean, 10th and 90th percentiles
+# creating Pandas dataframe for saving
+clim = np.transpose(np.vstack((data_clim.TEMP_AVE,
+                               data_clim.TEMP_PER10,
+                               data_clim.TEMP_PER90)))
+column_names =  ['AVE 2m','AVE 10m','AVE 20m','AVE 30m','AVE 40m',
+                'AVE 50m','AVE 60m','AVE 75m','AVE 99m',
+                'PER10 2m','PER10 10m','PER10 20m','PER10 30m','PER10 40m',
+                'PER10 50m','PER10 60m','PER10 75m','PER10 99m',
+                'PER90 2m','PER90 10m','PER90 20m','PER90 30m','PER90 40m',
+                'PER90 50m','PER90 60m','PER90 75m','PER90 99m',]
+clim = pd.DataFrame(clim, columns = column_names)
 
-# TO DO
+# define saving location
+saving_path = ('C:\\Users\\mphem\\Documents\\Work\\UNSW\\' + 
+             'climatology\\Revamped_scripts\\Climatology\\' +
+             'Scripts\\Provided_scripts_paper\\data_product' + 
+             '_tutorials\\PYTHON\\')
+# export data as .csv
+clim.to_csv(saving_path + 'climatology.csv')
+
 
 
 
