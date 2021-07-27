@@ -1,5 +1,5 @@
 # data_product_tutorials
-A repository containing tutorials demonstrating how to download, load, and plot aggregated, gridded, and climatology data products
+A repository containing tutorials in MATLAB, Python, and R demonstrating how to download, load, plot, and export the climatology data products.
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
