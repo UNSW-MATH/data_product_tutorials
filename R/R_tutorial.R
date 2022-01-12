@@ -1,14 +1,14 @@
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# 
+#
 # % R_tutorial.R
-# 
+#
 # % Tutorial created 27/07/2021 by Michael Hemming, NSW-IMOS Sydney
 # % using R version 3.6.1 (2019-07-05), RStudio interface
-# 
+#
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# 
+#
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Import packages (These should be available on your system) --------------
@@ -23,33 +23,33 @@ library(reshape2)
 # Demonstration: Downloading files and citation ---------------------------
 
 # %####################################################################################################
-# 
-# % The netCDF files are available for download here: http://thredds.aodn.org.au/thredds/catalog/IMOS/catalog.html and 
-# % the catalogue record is available here: https://catalogue-rc.aodn.org.au/
-#   
-# % For more information on the files and methodology, please see Roughan, M., et al. "Multi-decadal ocean temperature time-series and 
-# % climatologies from Australia's National Reference Stations." Scientific Data 8.1 (2021): 1-23. (TO UPDATED)
-# 
+#
+# % The netCDF files are available for download here:
+# % http://thredds.aodn.org.au/thredds/catalog/UNSW/NRS_climatology/Temperature_DataProducts/catalog.html
+#
+# % For more information on the files and methodology, please see Roughan, M., et al. "Multi-decadal ocean temperature time-series and
+# % climatologies from Australia's long-term National Reference Stations." Scientific Data (2022)
+#
 # %####################################################################################################
-# 
+#
 # %----------%----------
 # % Citation:
 # %----------%----------
-#   
+#
 # % Any and all use of the data products and code provided here must include:
-#   
+#
 # % (a) a citation to the above paper,
 # % (b) a reference to the data citation as written in the netCDF file attributes
 # % (c) the following acknowledgement statement: Data was sourced from Australia's Integrated Marine Observing System (IMOS) - IMOS is enabled by
-# %     the NationalCollaborative Research Infrastructure Strategy (NCRIS).
-# 
+# %     the National Collaborative Research Infrastructure Strategy (NCRIS).
+#
 # %####################################################################################################
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Demonstration: loading the netCDF files ---------------------------------
 
 # define file path
-file_path <- 'C:\\Users\\mphem\\Documents\\Work\\UNSW\\climatology\\Revamped_scripts\\Climatology\\Scripts\\Provided_scripts_paper\\data_product_tutorials\\Example_files\\';
+file_path <- 'PATH_TO_FILES';
 file_agg <- paste(file_path,'PH100_TEMP_1953-2020_aggregated_v1.nc', sep="");
 file_grid <- paste(file_path,'PH100_TEMP_1953-2020_gridded_v1.nc', sep="");
 file_clim <- paste(file_path,'PH100_TEMP_1953-2020_BottleCTDMooringSatellite_climatology_v1.nc', sep="");
@@ -73,7 +73,7 @@ PLAT <- ncvar_get(data_agg, "TEMP_DATA_PLATFORM_AGG")
 df <- data.frame(TIME_R,DEPTH,TEMP)
 ggplot(df,aes(x = TIME_R,y = DEPTH, color = as.character(PLAT))) +
   geom_point() + scale_y_reverse() + labs(title = "Demonstration: Port Hacking Aggregated Data") +
-  xlab('Year') + ylab('Depth [m]')  
+  xlab('Year') + ylab('Depth [m]')
 
 # Please note: This script was written in RStudio - plots show up in a window.
 # If this is not the case for you, you can use the following code to save
@@ -109,8 +109,7 @@ df <- data.frame(tt,TT,DD)
 # Create figure
 ggplot(df,aes(x = tt,y = TT, color = as.character(DD))) +
   geom_point() + labs(title = "Demonstration: Port Hacking Gridded Data") +
-  xlab('Year') + ylab('Temperature [\u00B0C]') + scale_color_discrete(name = "Depth [m]") + 
-  scale_color_jcolors(palette = "pal2")
+  xlab('Year') + ylab('Temperature [\u00B0C]') + scale_color_discrete(name = "Depth [m]")
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,7 +127,7 @@ df <- melt(df, id.vars=c("YearDay"))
 # Create figure
 ggplot(df,aes(x=YearDay, y = value, color = variable)) +
   geom_point() + labs(title = "Demonstration: Port Hacking Mean climatology") +
-  xlab('Year Day') + ylab('Temperature [\u00B0C]') + scale_color_discrete(name = "Depth") 
+  xlab('Year Day') + ylab('Temperature [\u00B0C]') + scale_color_discrete(name = "Depth")
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -141,6 +140,4 @@ colnames(clim) <- c("YearDay", "AVE 2m", "AVE 10m", "AVE 20m", "AVE 30m", "AVE 4
                   "PER90 2m", "PER90 10m", "PER90 20m", "PER90 30m", "PER90 40m", "PER90 50m", "PER90 60m", "PER90 75m","PER90 99m")
 
 # Export data as .csv
-write.csv(clim, 
-"C:\\Users\\mphem\\Documents\\Work\\UNSW\\climatology\\Revamped_scripts\\Climatology\\Scripts\\Provided_scripts_paper\\data_product_tutorials\\R\\climatology.csv") 
-
+write.csv(clim,"PATH_TO_SAVE\\climatology.csv")

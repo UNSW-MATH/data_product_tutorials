@@ -15,11 +15,11 @@
 
 %####################################################################################################
 
-% The netCDF files are available for download here: http://thredds.aodn.org.au/thredds/catalog/IMOS/catalog.html and 
-% the catalogue record is available here: https://catalogue-rc.aodn.org.au/
+% The netCDF files are available for download here: 
+% http://thredds.aodn.org.au/thredds/catalog/UNSW/NRS_climatology/Temperature_DataProducts/catalog.html
 
 % For more information on the files and methodology, please see Roughan, M., et al. "Multi-decadal ocean temperature time-series and 
-% climatologies from Australia's National Reference Stations." Scientific Data 8.1 (2021): 1-23. (TO UPDATED)
+% climatologies from Australia's long-term National Reference Stations." Scientific Data (2022)
 
 %####################################################################################################
 
@@ -39,7 +39,7 @@
 %% Demonstration: loading the netCDF files
 
 % define file path
-file_path = 'C:\Users\mphem\Documents\Work\UNSW\climatology\Revamped_scripts\Climatology\Scripts\Provided_scripts_paper'; % TO UPDATE
+file_path = % TO UPDATE
 addpath(genpath(file_path));
 % define filenames 
 file_agg = 'PH100_TEMP_1953-2020_aggregated_v1.nc';
@@ -133,5 +133,5 @@ clim.PER10 = data_clim.TEMP_PER10;
 clim.PER90 = data_clim.TEMP_PER90;
 % convert structure to table and save as a .csv
 writetable(struct2table(clim), 'climatology.csv')
-
+disp(['climatology.csv saved in: ',pwd])
 
